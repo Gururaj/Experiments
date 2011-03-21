@@ -39,23 +39,33 @@
    /* Put the tokens into the symbol table, so that GDB and other debuggers
       know about them.  */
    enum yytokentype {
-     NUMBER = 258,
-     FUNCTION = 259,
-     OPEN = 260,
-     CLOSE = 261
+     OPEN = 258,
+     CLOSE = 259,
+     SEMICOLON = 260,
+     NUMBER = 261,
+     FUNCTION = 262
    };
 #endif
 /* Tokens.  */
-#define NUMBER 258
-#define FUNCTION 259
-#define OPEN 260
-#define CLOSE 261
+#define OPEN 258
+#define CLOSE 259
+#define SEMICOLON 260
+#define NUMBER 261
+#define FUNCTION 262
 
 
 
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-typedef int YYSTYPE;
+typedef union YYSTYPE
+#line 30 "language.y"
+{
+        int number;
+        char *string;
+}
+/* Line 1529 of yacc.c.  */
+#line 68 "language.tab.h"
+	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
 # define YYSTYPE_IS_TRIVIAL 1

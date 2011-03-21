@@ -7,9 +7,11 @@
 
 %%
 
-[0-9]+  {printf("Number\n"); return NUMBER; }
-\(      return OPEN;
-\)      return CLOSE;
-[a-zA-Z]+       { printf("function\n"); return FUNCTION; }
-
+[0-9]+   yylval.number = atoi(yytext); return NUMBER; 
+;        return SEMICOLON; 
+\(        return OPEN; 
+\)       return CLOSE; 
+[a-zA-Z]+         yylval.string = strdup(yytext); return FUNCTION; 
+\n              /* Ignore */
+[ \t]           /* Ignore */
 %%
