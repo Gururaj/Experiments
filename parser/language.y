@@ -17,6 +17,7 @@ int main() {
 }
 
 char line[100];
+int rownum =0;
 
 %}
 
@@ -40,7 +41,18 @@ char line[100];
 start: functions {printf("%s",$$); }
 
 functions: function SEMICOLON { $$ = $1 }
-           | function SEMICOLON functions  { sprintf(line,"%s%s",$1,$3); $$ = strdup(line); }
+           | function SEMICOLON functions
+                                 {
+                                        sprintf(line,"%s%s",$1,$3);
+                                        $$ = strdup(line);
+                                 }
 
-function: FUNCTION OPEN NUMBER CLOSE {  /* printf("Seeing %s\n",$1); */ sprintf(line,"%s\t%d\n",$1,$3); $$= strdup(line); }
+function:
+        FUNCTION OPEN FUNCTION CLOSE { /* To be added for functions within functions */ }
+        | FUNCTION OPEN NUMBER CLOSE
+                                {        /* printf("Seeing %s\n",$1); */
+                                        sprintf(line,"%d\t%s\t%d\n",rownum,$1,$3);
+                                        $$= strdup(line);
+                                        rownum++;
+                                }
         

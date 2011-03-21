@@ -1,2 +1,3 @@
-sum(10);mul(10);
-diff(39);fun(30);
+sum(10);               mul(10);
+diff(39);
+fun(30);
