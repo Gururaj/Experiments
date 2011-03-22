@@ -1,0 +1,2 @@
+flex tokens.flex  && bison -d language.y && gcc -o parser  lex.yy.c language.tab.c  -ll
+./parser < fulltest.txt
