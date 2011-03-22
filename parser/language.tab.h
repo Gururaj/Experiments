@@ -42,29 +42,31 @@
      OPEN = 258,
      CLOSE = 259,
      SEMICOLON = 260,
-     NUMBER = 261,
-     FUNCTION = 262
+     COMMA = 261,
+     NUMBER = 262,
+     FUNCTION = 263
    };
 #endif
 /* Tokens.  */
 #define OPEN 258
 #define CLOSE 259
 #define SEMICOLON 260
-#define NUMBER 261
-#define FUNCTION 262
+#define COMMA 261
+#define NUMBER 262
+#define FUNCTION 263
 
 
 
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 31 "language.y"
+#line 32 "language.y"
 {
         int number;
         char *string;
 }
 /* Line 1529 of yacc.c.  */
-#line 68 "language.tab.h"
+#line 70 "language.tab.h"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1

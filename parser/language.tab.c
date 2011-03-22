@@ -69,16 +69,18 @@
      OPEN = 258,
      CLOSE = 259,
      SEMICOLON = 260,
-     NUMBER = 261,
-     FUNCTION = 262
+     COMMA = 261,
+     NUMBER = 262,
+     FUNCTION = 263
    };
 #endif
 /* Tokens.  */
 #define OPEN 258
 #define CLOSE 259
 #define SEMICOLON 260
-#define NUMBER 261
-#define FUNCTION 262
+#define COMMA 261
+#define NUMBER 262
+#define FUNCTION 263
 
 
 
@@ -103,8 +105,9 @@ int main() {
   return 0;
 }
 
-char line[100];
+char line[1024];
 int rownum =0;
+char rownumstr[10];
 
 
 
@@ -128,13 +131,13 @@ int rownum =0;
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 31 "language.y"
+#line 32 "language.y"
 {
         int number;
         char *string;
 }
 /* Line 193 of yacc.c.  */
-#line 138 "language.tab.c"
+#line 141 "language.tab.c"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
@@ -147,7 +150,7 @@ typedef union YYSTYPE
 
 
 /* Line 216 of yacc.c.  */
-#line 151 "language.tab.c"
+#line 154 "language.tab.c"
 
 #ifdef short
 # undef short
@@ -362,20 +365,20 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  6
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   9
+#define YYLAST   24
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  8
+#define YYNTOKENS  9
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  4
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  6
+#define YYNRULES  10
 /* YYNRULES -- Number of states.  */
-#define YYNSTATES  13
+#define YYNSTATES  23
 
 /* YYTRANSLATE(YYLEX) -- Bison symbol number corresponding to YYLEX.  */
 #define YYUNDEFTOK  2
-#define YYMAXUTOK   262
+#define YYMAXUTOK   263
 
 #define YYTRANSLATE(YYX)						\
   ((unsigned int) (YYX) <= YYMAXUTOK ? yytranslate[YYX] : YYUNDEFTOK)
@@ -409,7 +412,7 @@ static const yytype_uint8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
-       5,     6,     7
+       5,     6,     7,     8
 };
 
 #if YYDEBUG
@@ -417,21 +420,25 @@ static const yytype_uint8 yytranslate[] =
    YYRHS.  */
 static const yytype_uint8 yyprhs[] =
 {
-       0,     0,     3,     5,     8,    12,    17
+       0,     0,     3,     5,     8,    12,    17,    24,    31,    38,
+      43
 };
 
 /* YYRHS -- A `-1'-separated list of the rules' RHS.  */
 static const yytype_int8 yyrhs[] =
 {
-       9,     0,    -1,    10,    -1,    11,     5,    -1,    11,     5,
-      10,    -1,     7,     3,     7,     4,    -1,     7,     3,     6,
-       4,    -1
+      10,     0,    -1,    11,    -1,    12,     5,    -1,    12,     5,
+      11,    -1,     8,     3,    12,     4,    -1,     8,     3,    12,
+       6,     7,     4,    -1,     8,     3,    12,     6,    12,     4,
+      -1,     8,     3,     7,     6,    12,     4,    -1,     8,     3,
+       7,     4,    -1,     8,     3,     7,     6,     7,     4,    -1
 };
 
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    41,    41,    43,    44,    51,    52
+       0,    42,    42,    44,    48,    55,    62,    69,    76,    83,
+      90
 };
 #endif
 
@@ -440,8 +447,8 @@ static const yytype_uint8 yyrline[] =
    First, the terminals, then, starting at YYNTOKENS, nonterminals.  */
 static const char *const yytname[] =
 {
-  "$end", "error", "$undefined", "OPEN", "CLOSE", "SEMICOLON", "NUMBER",
-  "FUNCTION", "$accept", "start", "functions", "function", 0
+  "$end", "error", "$undefined", "OPEN", "CLOSE", "SEMICOLON", "COMMA",
+  "NUMBER", "FUNCTION", "$accept", "start", "functions", "function", 0
 };
 #endif
 
@@ -450,20 +457,22 @@ static const char *const yytname[] =
    token YYLEX-NUM.  */
 static const yytype_uint16 yytoknum[] =
 {
-       0,   256,   257,   258,   259,   260,   261,   262
+       0,   256,   257,   258,   259,   260,   261,   262,   263
 };
 # endif
 
 /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_uint8 yyr1[] =
 {
-       0,     8,     9,    10,    10,    11,    11
+       0,     9,    10,    11,    11,    12,    12,    12,    12,    12,
+      12
 };
 
 /* YYR2[YYN] -- Number of symbols composing right hand side of rule YYN.  */
 static const yytype_uint8 yyr2[] =
 {
-       0,     2,     1,     2,     3,     4,     4
+       0,     2,     1,     2,     3,     4,     6,     6,     6,     4,
+       6
 };
 
 /* YYDEFACT[STATE-NAME] -- Default rule to reduce with in state
@@ -472,7 +481,8 @@ static const yytype_uint8 yyr2[] =
 static const yytype_uint8 yydefact[] =
 {
        0,     0,     0,     2,     0,     0,     1,     3,     0,     0,
-       4,     6,     5
+       4,     9,     0,     5,     0,     0,     0,     0,     0,    10,
+       8,     6,     7
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
@@ -483,17 +493,18 @@ static const yytype_int8 yydefgoto[] =
 
 /* YYPACT[STATE-NUM] -- Index in YYTABLE of the portion describing
    STATE-NUM.  */
-#define YYPACT_NINF -7
+#define YYPACT_NINF -6
 static const yytype_int8 yypact[] =
 {
-      -5,     0,     4,    -7,     1,    -6,    -7,    -5,     3,     5,
-      -7,    -7,    -7
+       0,     2,     6,    -6,    11,     3,    -6,     0,    -3,    -2,
+      -6,    -6,     5,    -6,     7,    13,    14,    15,    16,    -6,
+      -6,    -6,    -6
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-      -7,    -7,    -2,    -7
+      -6,    -6,    17,    -5
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]].  What to do in state STATE-NUM.  If
@@ -503,20 +514,25 @@ static const yytype_int8 yypgoto[] =
 #define YYTABLE_NINF -1
 static const yytype_uint8 yytable[] =
 {
-       8,     9,     1,     5,     6,    10,     7,    11,     0,    12
+       9,    11,    13,    12,    14,     5,     6,    16,     1,    18,
+       8,     1,    15,     1,    17,     1,     7,    19,    20,    21,
+      22,     0,     0,     0,    10
 };
 
 static const yytype_int8 yycheck[] =
 {
-       6,     7,     7,     3,     0,     7,     5,     4,    -1,     4
+       5,     4,     4,     6,     6,     3,     0,    12,     8,    14,
+       7,     8,     7,     8,     7,     8,     5,     4,     4,     4,
+       4,    -1,    -1,    -1,     7
 };
 
 /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
    symbol of state STATE-NUM.  */
 static const yytype_uint8 yystos[] =
 {
-       0,     7,     9,    10,    11,     3,     0,     5,     6,     7,
-      10,     4,     4
+       0,     8,    10,    11,    12,     3,     0,     5,     7,    12,
+      11,     4,     6,     4,     6,     7,    12,     7,    12,     4,
+       4,     4,     4
 };
 
 #define yyerrok		(yyerrstatus = 0)
@@ -1331,40 +1347,88 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 41 "language.y"
-    {printf("%s",(yyval.string)); ;}
+#line 42 "language.y"
+    {printf("%s",line); ;}
     break;
 
   case 3:
-#line 43 "language.y"
-    { (yyval.string) = (yyvsp[(1) - (2)].string) ;}
+#line 45 "language.y"
+    {
+                        //$$ = $1
+                    ;}
     break;
 
   case 4:
-#line 45 "language.y"
+#line 49 "language.y"
     {
-                                        sprintf(line,"%s%s",(yyvsp[(1) - (3)].string),(yyvsp[(3) - (3)].string));
-                                        (yyval.string) = strdup(line);
+                                        //sprintf(line,"%s\n%s\n",line,$1);
+                                        //$$ = strdup(line);
                                  ;}
     break;
 
   case 5:
-#line 51 "language.y"
-    { /* To be added for functions within functions */ ;}
+#line 56 "language.y"
+    {       /* To be added for functions within functions */
+                                        sprintf(line,"%s%d\t%s\t[%s]\n",line,rownum,(yyvsp[(1) - (4)].string),(yyvsp[(3) - (4)].string));
+                                        sprintf(rownumstr,"%d",rownum);
+                                        (yyval.string)= strdup(rownumstr);
+                                        rownum++;
+                                ;}
     break;
 
   case 6:
-#line 53 "language.y"
+#line 63 "language.y"
+    {       /* To be added for functions within functions */
+                                        sprintf(line,"%s%d\t%s\t[%s]\t%d\n",line,rownum,(yyvsp[(1) - (6)].string),(yyvsp[(3) - (6)].string),(yyvsp[(5) - (6)].number));
+                                        sprintf(rownumstr,"%d",rownum);
+                                        (yyval.string)= strdup(rownumstr);
+                                        rownum++;
+                                ;}
+    break;
+
+  case 7:
+#line 70 "language.y"
+    {       /* To be added for functions within functions */
+                                        sprintf(line,"%s%d\t%s\t[%s]\t[%s]\n",line,rownum,(yyvsp[(1) - (6)].string),(yyvsp[(3) - (6)].string),(yyvsp[(5) - (6)].string));
+                                        sprintf(rownumstr,"%d",rownum);
+                                        (yyval.string)= strdup(rownumstr);
+                                        rownum++;
+                                ;}
+    break;
+
+  case 8:
+#line 77 "language.y"
+    {       /* To be added for functions within functions */
+                                        sprintf(line,"%s%d\t%s\t%d\t[%s]\n",line,rownum,(yyvsp[(1) - (6)].string),(yyvsp[(3) - (6)].number),(yyvsp[(5) - (6)].string));
+                                        sprintf(rownumstr,"%d",rownum);
+                                        (yyval.string)= strdup(rownumstr);
+                                        rownum++;
+                                ;}
+    break;
+
+  case 9:
+#line 84 "language.y"
     {        /* printf("Seeing %s\n",$1); */
-                                        sprintf(line,"%d\t%s\t%d\n",rownum,(yyvsp[(1) - (4)].string),(yyvsp[(3) - (4)].number));
-                                        (yyval.string)= strdup(line);
+                                        sprintf(line,"%s%d\t%s\t%d\n",line,rownum,(yyvsp[(1) - (4)].string),(yyvsp[(3) - (4)].number));
+                                        sprintf(rownumstr,"%d",rownum);
+                                        (yyval.string)= strdup(rownumstr);
+                                        rownum++;
+                                ;}
+    break;
+
+  case 10:
+#line 91 "language.y"
+    {        /* printf("Seeing %s\n",$1); */
+                                        sprintf(line,"%s%d\t%s\t%d\t%d\n",line,rownum,(yyvsp[(1) - (6)].string),(yyvsp[(3) - (6)].number),(yyvsp[(5) - (6)].number));
+                                        sprintf(rownumstr,"%d",rownum);
+                                        (yyval.string)= strdup(rownumstr);
                                         rownum++;
                                 ;}
     break;
 
 
 /* Line 1267 of yacc.c.  */
-#line 1368 "language.tab.c"
+#line 1432 "language.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);

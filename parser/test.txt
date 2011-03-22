@@ -1,1 +1,1 @@
-sum(10);mul(10);
+sum(mul( sum(10,40) , fun(20,200) ), sqrt( sqrt(200) ));
