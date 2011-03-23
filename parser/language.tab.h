@@ -44,7 +44,8 @@
      SEMICOLON = 260,
      COMMA = 261,
      NUMBER = 262,
-     FUNCTION = 263
+     OPERATOR = 263,
+     FUNCTION = 264
    };
 #endif
 /* Tokens.  */
@@ -53,20 +54,21 @@
 #define SEMICOLON 260
 #define COMMA 261
 #define NUMBER 262
-#define FUNCTION 263
+#define OPERATOR 263
+#define FUNCTION 264
 
 
 
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 32 "language.y"
+#line 26 "language.y"
 {
         int number;
         char *string;
 }
 /* Line 1529 of yacc.c.  */
-#line 70 "language.tab.h"
+#line 72 "language.tab.h"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1

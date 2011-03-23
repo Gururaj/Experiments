@@ -22,20 +22,26 @@ char rownumstr[10];
 
 %}
 
-%token OPEN CLOSE SEMICOLON COMMA
-
-%type <string> function
-%type <string> functions
-%type <string> start
-
 %union
 {
         int number;
         char *string;
 }
 
+
+%token OPEN CLOSE SEMICOLON COMMA 
+
+
+
+
 %token <number> NUMBER
+%token <string> OPERATOR
 %token <string> FUNCTION
+
+%type <string> function
+%type <string> functions
+%type <string> start
+
 
 %%
 
@@ -52,16 +58,22 @@ functions: function SEMICOLON
                                  }
 
 function:
-        FUNCTION OPEN function CLOSE
+        NUMBER                  {
+                                        sprintf(line,"%s%d\tNUM\t%d\n",line,rownum,$1);
+                                        sprintf(rownumstr,"%d",rownum);
+                                        $$ = strdup(rownumstr);
+                                        rownum++;
+                                }
+        | OPEN function OPERATOR function CLOSE
                                 {       /* To be added for functions within functions */
-                                        sprintf(line,"%s%d\t%s\t[%s]\n",line,rownum,$1,$3);
+                                        sprintf(line,"%s%d\t%s\t[%s]\t[%s]\n",line,rownum,$3,$2,$4);
                                         sprintf(rownumstr,"%d",rownum);
                                         $$= strdup(rownumstr);
                                         rownum++;
-                                }
-        | FUNCTION OPEN function COMMA NUMBER CLOSE
+                                }        
+        | FUNCTION OPEN function CLOSE
                                 {       /* To be added for functions within functions */
-                                        sprintf(line,"%s%d\t%s\t[%s]\t%d\n",line,rownum,$1,$3,$5);
+                                        sprintf(line,"%s%d\t%s\t[%s]\n",line,rownum,$1,$3);
                                         sprintf(rownumstr,"%d",rownum);
                                         $$= strdup(rownumstr);
                                         rownum++;
@@ -72,26 +84,4 @@ function:
                                         sprintf(rownumstr,"%d",rownum);
                                         $$= strdup(rownumstr);
                                         rownum++;
-                                }                                
-        | FUNCTION OPEN NUMBER COMMA function CLOSE
-                                {       /* To be added for functions within functions */
-                                        sprintf(line,"%s%d\t%s\t%d\t[%s]\n",line,rownum,$1,$3,$5);
-                                        sprintf(rownumstr,"%d",rownum);
-                                        $$= strdup(rownumstr);
-                                        rownum++;
-                                }                                
-        | FUNCTION OPEN NUMBER CLOSE
-                                {        /* printf("Seeing %s\n",$1); */
-                                        sprintf(line,"%s%d\t%s\t%d\n",line,rownum,$1,$3);
-                                        sprintf(rownumstr,"%d",rownum);
-                                        $$= strdup(rownumstr);
-                                        rownum++;
                                 }
-        | FUNCTION OPEN NUMBER COMMA NUMBER CLOSE
-                                {        /* printf("Seeing %s\n",$1); */
-                                        sprintf(line,"%s%d\t%s\t%d\t%d\n",line,rownum,$1,$3,$5);
-                                        sprintf(rownumstr,"%d",rownum);
-                                        $$= strdup(rownumstr);
-                                        rownum++;
-                                }
-                                

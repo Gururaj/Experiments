@@ -12,7 +12,11 @@
 \(        return OPEN; 
 \)       return CLOSE;
 ,        return COMMA;
-[a-zA-Z]+         yylval.string = strdup(yytext); return FUNCTION; 
+\+        yylval.string = strdup(yytext); return OPERATOR;
+-        yylval.string = strdup(yytext); return OPERATOR;
+\*        yylval.string = strdup(yytext); return OPERATOR;
+\/        yylval.string = strdup(yytext); return OPERATOR;
+[a-zA-Z]+         yylval.string = strdup(yytext); return FUNCTION;
 \n              /* Ignore */
 [ \t]           /* Ignore */
 %%
