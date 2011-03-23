@@ -18,7 +18,7 @@ int main() {
 
 char line[1024];
 int rownum =0;
-char rownumstr[10];
+char rownumstr[128];
 
 %}
 
@@ -32,13 +32,12 @@ char rownumstr[10];
 %token OPEN CLOSE SEMICOLON COMMA 
 
 
-
-
 %token <number> NUMBER
-%token <string> OPERATOR
-%token <string> FUNCTION
+%token <string> FLOAT
+%token <string> OPERATOR FUNCTION
 
-%type <string> function
+
+%type <string> function expression
 %type <string> functions
 %type <string> start
 
@@ -59,29 +58,57 @@ functions: function SEMICOLON
 
 function:
         NUMBER                  {
-                                        sprintf(line,"%s%d\tNUM\t%d\n",line,rownum,$1);
-                                        sprintf(rownumstr,"%d",rownum);
+                                        //sprintf(line,"%s%d\tNUM\t%d\n",line,rownum,$1);
+                                        //sprintf(rownumstr,"%d",rownum);
+                                        //$$ = strdup(rownumstr);
+                                        //rownum++;
+                                        sprintf(rownumstr,"int(%d)",$1);
                                         $$ = strdup(rownumstr);
-                                        rownum++;
                                 }
-        | OPEN function OPERATOR function CLOSE
+        | FLOAT                  {
+                                        //sprintf(line,"%s%d\tNUM\t%d\n",line,rownum,$1);
+                                        //sprintf(rownumstr,"%d",rownum);
+                                        //$$ = strdup(rownumstr);
+                                        //rownum++;
+                                        sprintf(rownumstr,"float(%s)",$1);
+                                        $$ = strdup(rownumstr);
+                                }                                
+        | expression
                                 {       /* To be added for functions within functions */
-                                        sprintf(line,"%s%d\t%s\t[%s]\t[%s]\n",line,rownum,$3,$2,$4);
-                                        sprintf(rownumstr,"%d",rownum);
-                                        $$= strdup(rownumstr);
-                                        rownum++;
-                                }        
+                                        //sprintf(line,"%s%d\t%s\n",line,rownum,$1);
+                                        //sprintf(rownumstr,"%d",rownum);
+                                        //$$= strdup(rownumstr);
+                                        //rownum++;
+                                        $$ = $1;
+                                }
+        | OPEN expression CLOSE
+                                {       /* To be added for functions within functions */
+                                        //sprintf(line,"%s%d\t%s\n",line,rownum,$2);
+                                        //sprintf(rownumstr,"%d",rownum);
+                                        //$$= strdup(rownumstr);
+                                        //rownum++;
+                                        $$ = $2;
+                                }                                        
         | FUNCTION OPEN function CLOSE
                                 {       /* To be added for functions within functions */
-                                        sprintf(line,"%s%d\t%s\t[%s]\n",line,rownum,$1,$3);
+                                        sprintf(line,"%s%d\t%s\t%s\n",line,rownum,$1,$3);
                                         sprintf(rownumstr,"%d",rownum);
                                         $$= strdup(rownumstr);
                                         rownum++;
                                 }
         | FUNCTION OPEN function COMMA function CLOSE
                                 {       /* To be added for functions within functions */
-                                        sprintf(line,"%s%d\t%s\t[%s]\t[%s]\n",line,rownum,$1,$3,$5);
+                                        sprintf(line,"%s%d\t%s\t%s\t%s\n",line,rownum,$1,$3,$5);
                                         sprintf(rownumstr,"%d",rownum);
                                         $$= strdup(rownumstr);
                                         rownum++;
+                                }
+
+expression:
+        function OPERATOR function
+                                {
+                                        sprintf(line,"%s%d\t%s\t%s\t%s\n",line,rownum,$2,$1,$3);
+                                        sprintf(rownumstr,"%d",rownum);
+                                        $$= strdup(rownumstr);
+                                        rownum++;                          
                                 }
