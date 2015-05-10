@@ -1,0 +1,45 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'application'
+
+sourceCompatibility = 1.8
+version = '1.0'
+mainClassName = 'com.gsmayya.java8.Main'
+
+dependencies {
+    runtime group: 'com.google.guava', name:'guava', version:'18.0'
+    runtime group: 'com.yammer.metrics', name:'metrics-core', version:'2.2.0'
+    runtime group: 'org.apache.commons', name:'commons-collections4', version:'4.0'
+    runtime group: 'org.apache.commons', name:'commons-lang3',  version:'3.4'
+    runtime group: 'org.apache.commons', name:'commons-math3', version:'3.5'
+
+    testCompile group: 'org.mockito', name:'mockito-core', version:'1.9.5'
+    testCompile group:'org.testng', name:'testng', version:'6.8.21'
+
+}
+
+
+task createDocs {
+    def docs = file("$buildDir/docs")
+    outputs.dir docs
+    doLast {
+        docs.mkdirs()
+        new File(docs, "readme.txt").write("Read me!")
+    }
+}
+
+distributions {
+    main {
+        contents {
+            from(createDocs) {
+                into "docs"
+            }
+        }
+    }
+}
+
+
+
+repositories {
+    mavenCentral()
+}
