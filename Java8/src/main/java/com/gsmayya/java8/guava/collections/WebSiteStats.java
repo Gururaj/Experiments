@@ -3,13 +3,13 @@ package com.gsmayya.java8.guava.collections;
 import com.google.common.hash.Hasher;
 import com.google.common.hash.Hashing;
 
-import com.sun.istack.internal.NotNull;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * Created by gseethar on 5/2/15.
