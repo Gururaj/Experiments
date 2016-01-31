@@ -8,19 +8,19 @@ import com.google.common.collect.Multiset;
  */
 public class GoogleSetCollector implements SetCollector {
 
-  private final Multiset<String> _map = HashMultiset.create();
-  public void collect(String token) {
-    _map.add(token);
-  }
+    private final Multiset<String> _map = HashMultiset.create();
 
-  @Override
-  public String toString() {
-    StringBuilder stringBuilder = new StringBuilder();
-    _map.elementSet().forEach(
-        (t) -> {
-          stringBuilder.append(t + " " + _map.count(t) + "\n");
-        }
-    );
-    return stringBuilder.toString();
-  }
+    @Override
+    public void collect(String token) {
+	_map.add(token);
+    }
+
+    @Override
+    public String toString() {
+	StringBuilder stringBuilder = new StringBuilder();
+	_map.elementSet().forEach((t) -> {
+	    stringBuilder.append(t + " " + _map.count(t) + "\n");
+	});
+	return stringBuilder.toString();
+    }
 }

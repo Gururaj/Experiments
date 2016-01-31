@@ -9,15 +9,15 @@ import com.gsmayya.cups.Utils.Utils;
  */
 public class SoundCard {
 
-  private Optional<Usb> usb;
+    private final Optional<Usb> usb;
 
-  public SoundCard() {
-    int myBias = 10;
-    usb = Utils.returnRandom(new Usb(), myBias);
-  }
+    public SoundCard() {
+	int myBias = 10;
+	usb = Utils.returnRandom(new Usb(), myBias);
+    }
 
-  public Optional<Usb> getUsb() {
-    return usb;
-  }
+    public Optional<Usb> getUsb() {
+	return usb;
+    }
 
 }

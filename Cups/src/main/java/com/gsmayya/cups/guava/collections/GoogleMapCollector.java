@@ -8,24 +8,22 @@ import com.google.common.collect.Multimap;
  */
 public class GoogleMapCollector<K, V> implements MapCollector<K, V> {
 
-  private Multimap<K, V> _mmap = HashMultimap.create();
+    private final Multimap<K, V> _mmap = HashMultimap.create();
 
-  public void collect(K token, V value) {
-    _mmap.put(token, value);
-  }
+    @Override
+    public void collect(K token, V value) {
+	_mmap.put(token, value);
+    }
 
-  @Override
-  public String toString() {
-    StringBuilder stringBuilder = new StringBuilder();
+    @Override
+    public String toString() {
+	StringBuilder stringBuilder = new StringBuilder();
 
-    _mmap.asMap().forEach(
-        (k, v) -> {
-          stringBuilder.append("Key = " + k);
-          v.forEach(
-              (value) -> stringBuilder.append(" Value = " + value + "\n"));
-        }
-    );
+	_mmap.asMap().forEach((k, v) -> {
+	    stringBuilder.append("Key = " + k);
+	    v.forEach((value) -> stringBuilder.append(" Value = " + value + "\n"));
+	});
 
-    return stringBuilder.toString();
-  }
+	return stringBuilder.toString();
+    }
 }
