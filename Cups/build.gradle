@@ -4,7 +4,7 @@ apply plugin: 'application'
 
 sourceCompatibility = 1.8
 version = '1.0'
-mainClassName = 'com.gsmayya.java8.Main'
+mainClassName = 'com.gsmayya.cups.work.Main'
 
 dependencies {
     compile group: 'com.google.guava', name:'guava', version:'18.0'
