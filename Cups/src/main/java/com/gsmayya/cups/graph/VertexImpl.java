@@ -1,10 +1,10 @@
 package com.gsmayya.cups.graph;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import com.gsmayya.cups.graph.api.Edge;
 import com.gsmayya.cups.graph.api.Vertex;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by gseethar on 7/6/14.
@@ -12,54 +12,50 @@ import com.gsmayya.cups.graph.api.Vertex;
 public class VertexImpl implements Vertex {
 
     private final Set<Edge> _edges;
-
-    @Override
-    public String getName() {
-	return _name;
-    }
-
     private final String _name;
 
     public VertexImpl(String name) {
-	_edges = new HashSet<>();
-	_name = name;
+        _edges = new HashSet<>();
+        _name = name;
+    }
+
+    @Override
+    public String getName() {
+        return _name;
     }
 
     @Override
     public void add(Edge e) {
-	_edges.add(e);
+        _edges.add(e);
     }
 
     @Override
     public void remove(Edge e) {
-	_edges.remove(e);
+        _edges.remove(e);
     }
 
     @Override
     public Set<Edge> getEdges() {
-	return _edges;
+        return _edges;
     }
 
     @Override
     public boolean equals(Object obj) {
-	if (obj instanceof Vertex) {
-	    return _name.equals(((Vertex) obj).getName()) || _edges.equals(((Vertex) obj).getEdges());
-	}
-	return false;
+        return obj instanceof Vertex && (_name.equals(((Vertex) obj).getName()) || _edges.equals(((Vertex) obj).getEdges()));
     }
 
     @Override
     public void clear() {
-	_edges.clear();
+        _edges.clear();
     }
 
     @Override
     public String toString() {
-	return _name;
+        return _name;
     }
 
     @Override
     public boolean disconnected() {
-	return _edges.isEmpty();
+        return _edges.isEmpty();
     }
 }

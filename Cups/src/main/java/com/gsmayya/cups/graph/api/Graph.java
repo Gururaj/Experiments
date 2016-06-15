@@ -7,23 +7,23 @@ import java.util.Set;
  */
 public interface Graph {
 
-    default public boolean isDirected() {
+    default boolean isDirected() {
         return false;
     }
 
-    public Vertex addVertex(Vertex v);
+    Vertex addVertex(Vertex v);
 
-    public Edge addEdge(Edge e);
+    Edge addEdge(Edge e);
 
-    public void removeVertex(Vertex v);
+    void removeVertex(Vertex v);
 
-    public void removeEdge(Edge e);
+    void removeEdge(Edge e);
 
-    public Set<Vertex> getVertices();
+    Set<Vertex> getVertices();
 
-    public Set<Vertex> getEdges();
+    Set<Vertex> getEdges();
 
-    public void removeVertices(Set<Vertex> vertices);
+    void removeVertices(Set<Vertex> vertices);
 
-    public void removeEdges(Set<Vertex> edges);
+    void removeEdges(Set<Vertex> edges);
 }

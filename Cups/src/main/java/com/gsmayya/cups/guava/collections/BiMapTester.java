@@ -12,13 +12,13 @@ public class BiMapTester<K, V> implements MapCollector<K, V> {
 
     @Override
     public void collect(K token, V value) {
-	_pairs.put(token, value);
+        _pairs.put(token, value);
     }
 
     @Override
     public String toString() {
-	StringBuilder stringBuilder = new StringBuilder();
-	_pairs.forEach((k, v) -> stringBuilder.append(k + " => " + v + "\n"));
-	return stringBuilder.toString();
+        StringBuilder stringBuilder = new StringBuilder();
+        _pairs.forEach((k, v) -> stringBuilder.append(k + " => " + v + "\n"));
+        return stringBuilder.toString();
     }
 }

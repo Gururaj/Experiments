@@ -7,16 +7,16 @@ import java.util.Set;
  */
 public interface Vertex {
 
-    public String getName();
+    String getName();
 
-    public void add(Edge edge);
+    void add(Edge edge);
 
-    public void remove(Edge edge);
+    void remove(Edge edge);
 
-    public Set<Edge> getEdges();
+    Set<Edge> getEdges();
 
-    public void clear();
+    void clear();
 
-    public boolean disconnected();
+    boolean disconnected();
 
 }
