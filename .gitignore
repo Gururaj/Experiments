@@ -7,6 +7,7 @@
 *.iml
 *.ipr
 *.iws
+*.class
 /build
 */build
 out/
@@ -16,3 +17,4 @@ test-output/
 enerated/
 */target/
 */project/target/
+*/project/project/target/
