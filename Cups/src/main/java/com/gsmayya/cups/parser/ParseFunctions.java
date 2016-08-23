@@ -27,16 +27,16 @@ public class ParseFunctions {
 
     // TODO: This is where the parser will come in.
     public void parseString(String str) {
-		Vector<Object> arguments = new Vector<Object>();
+		Vector<Object> arguments = new Vector<>();
 
-		HashMap<String, String> argument = new HashMap<String, String>();
+		HashMap<String, String> argument = new HashMap<>();
 		argument.put("10", "int");
 		arguments.add(argument);
-		HashMap<String, String> argument2 = new HashMap<String, String>();
+		HashMap<String, String> argument2 = new HashMap<>();
 		argument2.put("20", "int");
 		arguments.add(argument2);
 
-		HashMap<String, Object> row = new HashMap<String, Object>();
+		HashMap<String, Object> row = new HashMap<>();
 		row.put("op", "times");
 		row.put("args", arguments);
 		parsedObject.add(row);
